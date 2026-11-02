@@ -463,6 +463,22 @@
       a:hover {
         color: #fff0c2;
       }
+      .visitor-counter {
+        width: fit-content;
+        max-width: 100%;
+        margin: 18px auto 0;
+        padding: 12px 20px;
+        border: 1px solid rgba(231, 211, 174, 0.24);
+        border-radius: 999px;
+        background: rgba(18, 20, 43, 0.52);
+        color: var(--muted);
+        text-align: center;
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+      }
+      .visitor-counter strong {
+        color: var(--gold);
+        font-variant-numeric: tabular-nums;
+      }
       li::marker {
         color: #d9b979;
       }
@@ -870,6 +886,9 @@
           LinkedIn Profile
         </a>
       </p>
+      <p class="visitor-counter" aria-live="polite">
+        <span id="visitor-count-status">Connecting to the visitor counter…</span>
+      </p>
     </section>
     <section>
       <h2>My Journey</h2>
@@ -1057,6 +1076,29 @@
         } else {
           bloom();
         }
+      })();
+    </script>
+    <script>
+      (() => {
+        const endpoint = "https://6dxj90wr6k.execute-api.us-east-2.amazonaws.com/count";
+        const status = document.getElementById("visitor-count-status");
+        if (!status) return;
+        if (!endpoint.startsWith("https://")) {
+          status.textContent = "Visitor counter coming soon ✨";
+          return;
+        }
+        fetch(endpoint, { cache: "no-store" })
+          .then((response) => {
+            if (!response.ok) throw new Error("Counter request failed");
+            return response.json();
+          })
+          .then(({ count }) => {
+            if (!Number.isInteger(count)) throw new Error("Invalid counter response");
+            status.innerHTML = `You’re visitor <strong>${count.toLocaleString()}</strong> ✨`;
+          })
+          .catch(() => {
+            status.textContent = "Visitor count is taking a little moonlit pause ✨";
+          });
       })();
     </script>
   </body>
