@@ -30,6 +30,9 @@
       }
       html {
         scroll-behavior: smooth;
+        min-height: 100%;
+        background: radial-gradient(ellipse at 50% 10%, rgba(208, 143, 190, 0.13), transparent 38%), linear-gradient(180deg, var(--night), var(--indigo) 42%, var(--plum));
+        background-attachment: fixed;
       }
       body {
         margin: 0;
@@ -37,7 +40,15 @@
         font-family: "Poppins", sans-serif;
         color: var(--ink);
         overflow-x: hidden;
+        background: transparent;
+        /* The page-wide atmosphere is attached to html so it has no hero edge. */
+        /*
         background:
+          radial-gradient(ellipse at 20% 10%, rgba(208, 143, 190, 0.13), transparent 35%),
+          radial-gradient(ellipse at 78% 24%, rgba(118, 139, 220, 0.14), transparent 40%),
+          radial-gradient(ellipse at 52% 48%, rgba(255, 220, 160, 0.07), transparent 36%),
+          radial-gradient(ellipse at 18% 76%, rgba(143, 127, 205, 0.11), transparent 42%),
+          radial-gradient(ellipse at 84% 88%, rgba(222, 166, 190, 0.09), transparent 40%),
           radial-gradient(
             ellipse at 18% 8%,
             rgba(101, 91, 169, 0.23),
@@ -50,6 +61,7 @@
           ),
           linear-gradient(180deg, var(--night), var(--indigo) 42%, var(--plum));
         background-attachment: fixed;
+        */
         position: relative;
       }
       body:before {
@@ -87,18 +99,7 @@
         min-height: 590px;
         padding: 145px 24px 100px;
         text-align: center;
-        background:
-          radial-gradient(
-            ellipse at 50% 100%,
-            rgba(185, 148, 208, 0.12),
-            transparent 58%
-          ),
-          linear-gradient(
-            180deg,
-            rgba(7, 10, 28, 0.10) 0%,
-            rgba(12, 14, 34, 0.08) 68%,
-            rgba(21, 21, 47, 0) 100%
-          );
+        background: transparent;
         border-bottom: 0;
       }
       /* Slow, blurred atmosphere: several independent layers, never a flat image. */
@@ -111,6 +112,12 @@
         z-index: 0;
         border-radius: 50%;
         filter: blur(55px);
+      }
+      /* Keep the atmosphere continuous through the page background. A haze
+         clipped inside the hero creates a visible seam at the hero's bottom. */
+      .hero::before,
+      .hero::after {
+        display: none;
       }
       .hero::before {
         background:
@@ -1054,3 +1061,14 @@
     </script>
   </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
