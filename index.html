@@ -827,6 +827,7 @@
           <li>Amazon S3 hosts the static website files.</li>
           <li>Amazon CloudFront delivers the site over HTTPS.</li>
           <li>AWS IAM manages access and permissions for the cloud resources.</li>
+          <li>GitHub tracks the source code and publishes a copy with GitHub Pages.</li>
         </ul>
         <h4>What I worked through</h4>
         <p>
@@ -835,16 +836,25 @@
           implement HTTPS through CloudFront.
         </p>
         <h4>Tools</h4>
-        <p>Amazon S3 · AWS IAM · Amazon CloudFront · HTML · CSS</p>
+        <p>Amazon S3 · AWS IAM · Amazon CloudFront · GitHub · GitHub Pages · HTML · CSS</p>
       </div>
-      <h3>Up next</h3>
       <div class="project">
-        <h4>Serverless Visitor Counter</h4>
+        <p><strong>Completed project</strong></p>
+        <h3>Serverless Visitor Counter</h3>
         <p>
-          Planned project: use AWS Lambda, API Gateway, and DynamoDB to add a
-          visitor counter to this portfolio.
+          I built a visitor counter shared by my GitHub Pages and AWS-hosted
+          portfolio. The page calls an Amazon API Gateway HTTP API, which invokes
+          an AWS Lambda function written in Python. Lambda atomically updates the
+          total in an on-demand Amazon DynamoDB table.
+        </p>
+        <h4>Infrastructure and tools</h4>
+        <p>AWS CloudFormation · Amazon API Gateway · AWS Lambda · Amazon DynamoDB · Python · HTML · GitHub</p>
+        <p>
+          <a href="https://github.com/terrella1/amanda-terrell-portfolio"
+             target="_blank" rel="noopener noreferrer">View the project on GitHub</a>
         </p>
       </div>
+      <h3>Up next</h3>
       <div class="project">
         <h4>AWS Cost Calculator</h4>
         <p>
