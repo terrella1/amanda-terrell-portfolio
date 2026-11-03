@@ -966,6 +966,21 @@
         88% { opacity: .82; }
         100% { opacity: 0; transform: translate3d(calc(var(--petal-drift, 22px) * 1.35), 276px, 0) rotate(calc(var(--petal-rotation, 0deg) + 195deg)) scale(.92); }
       }
+      .cost-calculator { margin-top: 26px; }
+      .cost-intro { color: var(--muted); max-width: 78ch; }
+      .cost-controls { display: grid; gap: 22px; margin: 24px 0; }
+      .cost-control { display: grid; gap: 9px; }
+      .cost-control label { display: flex; justify-content: space-between; gap: 18px; color: var(--ink); font-weight: 500; }
+      .cost-control output { color: var(--gold-bright); font-variant-numeric: tabular-nums; white-space: nowrap; }
+      .cost-control input[type="range"] { width: 100%; accent-color: var(--gold); cursor: pointer; }
+      .cost-total { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; margin: 24px 0 12px; padding: 18px 20px; border: 1px solid rgba(243, 209, 138, .34); border-radius: 16px; background: rgba(8, 13, 34, .48); }
+      .cost-total strong { color: var(--gold-bright); font-size: clamp(1.8rem, 5vw, 2.5rem); font-variant-numeric: tabular-nums; }
+      .cost-breakdown { width: 100%; border-collapse: collapse; margin: 12px 0 20px; }
+      .cost-breakdown th, .cost-breakdown td { padding: 11px 8px; border-bottom: 1px solid var(--line); text-align: left; }
+      .cost-breakdown th:last-child, .cost-breakdown td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+      .cost-note { color: var(--muted); font-size: .9rem; }
+      .cost-personal-note { padding-left: 16px; border-left: 2px solid var(--gold); color: #e9dcf5; font-style: italic; }
+
     </style>
   </head>
   <body>
@@ -1107,11 +1122,61 @@
         </p>
       </div>
       <h3>Up next</h3>
-      <div class="project">
+      <div class="project cost-calculator" id="aws-cost-calculator">
         <h4>AWS Cost Calculator</h4>
-        <p>
-          Planned project: compare AWS service costs across practical scenarios
-          and explore cost optimization choices.
+        <p class="cost-intro">
+          What might a small portfolio website cost as it grows? Move the sliders
+          to explore a simple monthly estimate for this site’s S3 and CloudFront
+          hosting, plus its serverless visitor counter.
+        </p>
+        <p class="cost-personal-note">
+          As a mom of three, I know how important it is to make a budget work for
+          a large family. I bring that same care to keeping cloud costs predictable.
+        </p>
+        <div class="cost-controls">
+          <div class="cost-control">
+            <label for="calc-visitors">Monthly visitors <output id="calc-visitors-value" for="calc-visitors">10,000</output></label>
+            <input id="calc-visitors" type="range" min="0" max="2000000" step="10000" value="10000" />
+          </div>
+          <div class="cost-control">
+            <label for="calc-page-size">Average page download per visitor <output id="calc-page-size-value" for="calc-page-size">1.5 MB</output></label>
+            <input id="calc-page-size" type="range" min="0.25" max="5" step="0.25" value="1.5" />
+          </div>
+          <div class="cost-control">
+            <label for="calc-storage">Website files stored <output id="calc-storage-value" for="calc-storage">250 MB</output></label>
+            <input id="calc-storage" type="range" min="50" max="5000" step="50" value="250" />
+          </div>
+        </div>
+        <div class="cost-total" aria-live="polite">
+          <span>Estimated monthly total<br /><small>USD; before service credits, with CloudFront allowance included</small></span>
+          <strong id="calc-total">$0.00</strong>
+        </div>
+        <table class="cost-breakdown">
+          <caption class="cost-note" style="text-align:left; padding:8px 0">Estimated service breakdown</caption>
+          <thead><tr><th scope="col">AWS service</th><th scope="col">Estimated monthly cost</th></tr></thead>
+          <tbody>
+            <tr><td>Amazon S3 storage</td><td id="calc-s3">$0.00</td></tr>
+            <tr><td>Amazon CloudFront data transfer</td><td id="calc-cloudfront">$0.00</td></tr>
+            <tr><td>Amazon API Gateway (HTTP API)</td><td id="calc-api">$0.00</td></tr>
+            <tr><td>AWS Lambda (requests and compute)</td><td id="calc-lambda">$0.00</td></tr>
+            <tr><td>Amazon DynamoDB (one counter update per visitor)</td><td id="calc-dynamodb">$0.00</td></tr>
+          </tbody>
+        </table>
+        <p class="cost-note" id="calc-assumptions">
+          Assumptions: US pricing; one page request and one counter update per visitor;
+          a 128 MB Lambda function running for 100 ms per update; one DynamoDB write
+          per update; CloudFront’s first 1 TB and 10 million requests are treated as
+          included. S3 request charges, taxes, logs, DNS, and other optional services
+          are not included. Actual AWS charges can differ by region, configuration,
+          caching, free-tier eligibility, and current prices. This is a learning estimate,
+          not a bill prediction.
+        </p>
+        <p class="cost-note">
+          Pricing references: <a href="https://aws.amazon.com/s3/pricing/" target="_blank" rel="noopener noreferrer">S3</a> ·
+          <a href="https://aws.amazon.com/cloudfront/pricing/" target="_blank" rel="noopener noreferrer">CloudFront</a> ·
+          <a href="https://aws.amazon.com/api-gateway/pricing/" target="_blank" rel="noopener noreferrer">API Gateway</a> ·
+          <a href="https://aws.amazon.com/lambda/pricing/" target="_blank" rel="noopener noreferrer">Lambda</a> ·
+          <a href="https://aws.amazon.com/dynamodb/pricing/" target="_blank" rel="noopener noreferrer">DynamoDB</a>
         </p>
       </div>
     </section>
@@ -1139,6 +1204,11 @@
           Highlandterrell23@gmail.com
         </a>
       </p>
+     <p>
+      <a href="Amanda_Terrell_Cloud_Support_Resume_Public.pdf" target="_blank" rel="noopener noreferrer">
+  Download my resume
+</a>
+     </p>
       <p>
         <a
           href="https://linkedin.com/in/amanda-terrell-27122a37a"
@@ -1425,6 +1495,41 @@
           .catch(() => {
             status.textContent = "Visitor count is taking a little moonlit pause ✨";
           });
+      })();
+    </script>
+    <script>
+      (() => {
+        const visitors = document.getElementById("calc-visitors");
+        const pageSize = document.getElementById("calc-page-size");
+        const storage = document.getElementById("calc-storage");
+        if (!visitors || !pageSize || !storage) return;
+        const usd = (amount) => "$" + amount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const integer = new Intl.NumberFormat("en-US");
+        const update = () => {
+          const views = Number(visitors.value);
+          const mbPerVisit = Number(pageSize.value);
+          const storageMb = Number(storage.value);
+          const transferGb = views * mbPerVisit / 1024;
+          const s3Cost = storageMb / 1024 * 0.023;
+          const cloudFrontCost = Math.max(0, transferGb - 1024) * 0.085;
+          const apiCost = views / 1000000;
+          const lambdaRequests = views / 1000000 * 0.20;
+          const lambdaCompute = views * 0.125 * 0.1 * 0.0000166667;
+          const dynamoCost = views / 1000000 * 0.625;
+          const total = s3Cost + cloudFrontCost + apiCost + lambdaRequests + lambdaCompute + dynamoCost;
+          document.getElementById("calc-visitors-value").textContent = integer.format(views);
+          document.getElementById("calc-page-size-value").textContent = mbPerVisit.toFixed(2).replace(/0$/, "") + " MB";
+          document.getElementById("calc-storage-value").textContent = integer.format(storageMb) + " MB";
+          document.getElementById("calc-total").textContent = usd(total);
+          document.getElementById("calc-s3").textContent = usd(s3Cost);
+          document.getElementById("calc-cloudfront").textContent = usd(cloudFrontCost);
+          document.getElementById("calc-api").textContent = usd(apiCost);
+          document.getElementById("calc-lambda").textContent = usd(lambdaRequests + lambdaCompute);
+          document.getElementById("calc-dynamodb").textContent = usd(dynamoCost);
+          document.getElementById("calc-assumptions").dataset.transferGb = transferGb.toFixed(2);
+        };
+        [visitors, pageSize, storage].forEach((slider) => slider.addEventListener("input", update));
+        update();
       })();
     </script>
   </body>
