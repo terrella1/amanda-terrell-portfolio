@@ -981,6 +981,39 @@
       .cost-note { color: var(--muted); font-size: .9rem; }
       .cost-personal-note { padding-left: 16px; border-left: 2px solid var(--gold); color: #e9dcf5; font-style: italic; }
 
+    
+      /* A small moonlit garden to close the portfolio. */
+      .secret-garden { padding-top: 36px !important; padding-bottom: 90px !important; }
+      .garden-card { display:grid; grid-template-columns:1.15fr minmax(220px,.85fr); align-items:center; gap:clamp(24px,5vw,64px); max-width:1060px; margin:0 auto; padding:clamp(24px,5vw,54px); overflow:hidden; border:1px solid rgba(223,199,164,.27); border-radius:30px; background:radial-gradient(ellipse at 80% 50%,rgba(132,117,187,.2),transparent 48%),linear-gradient(135deg,rgba(31,34,66,.86),rgba(43,31,57,.84)); box-shadow:0 24px 70px rgba(0,0,0,.25),inset 0 1px rgba(255,245,220,.08); }
+      .garden-copy { order:1; }
+      .garden-art { order:2; position:relative; width:min(100%,300px); margin-inline:auto; }
+      .garden-art svg { position:relative; display:block; width:100%; overflow:visible; filter:drop-shadow(0 8px 18px rgba(12,14,32,.38)); }
+      .garden-glow { position:absolute; inset:12% 6% 16%; border-radius:50%; background:rgba(197,171,232,.16); filter:blur(32px); }
+      .garden-crescent { fill:url(#garden-moon); filter:drop-shadow(0 0 16px rgba(242,213,155,.4)); }
+      .garden-hill { fill:#242944; stroke:rgba(166,173,205,.28); stroke-width:1.5; }
+      .garden-stem { fill:none; stroke:#88a982; stroke-width:3; stroke-linecap:round; }
+      .garden-leaf { fill:#8da987; stroke:#bfd0a0; stroke-width:1; }
+      .garden-lily { filter:drop-shadow(0 4px 9px rgba(65,29,54,.25)); }
+      .lily-petal { fill:url(#garden-lily); stroke:rgba(255,236,244,.78); stroke-width:1; stroke-linejoin:round; }
+      .lily-vein { fill:none; stroke:rgba(255,241,246,.72); stroke-width:1.1; stroke-linecap:round; }
+      .lily-stamen { fill:none; stroke:#c59a43; stroke-width:1.7; stroke-linecap:round; }
+      .lily-anther { fill:#e9c66b; stroke:#fff0bd; stroke-width:.7; filter:drop-shadow(0 0 2px rgba(255,226,149,.6)); }
+      .lily-freckle { fill:#b94f81; opacity:.78; }
+      .lily-glint { fill:#ffe9ae; filter:drop-shadow(0 0 4px rgba(255,226,158,.85)); transform-box:fill-box; transform-origin:center; animation:lily-glimmer 3.1s ease-in-out infinite; }
+      .lily-glint:nth-child(2) { animation-delay:1s; }
+      .lily-glint:nth-child(3) { animation-delay:2s; }
+      @keyframes lily-glimmer { 0%,100% { opacity:.18; transform:scale(.72); } 45% { opacity:.92; transform:scale(1.08); } }
+      .rose-sepal { fill:#829776; stroke:rgba(191,208,160,.72); stroke-width:.9; stroke-linejoin:round; }
+      .garden-small-flower circle:not(.garden-center) { fill:#e6b7d7; stroke:rgba(255,241,229,.72); stroke-width:1; }
+      .garden-center { fill:#f1ce85; filter:drop-shadow(0 0 5px rgba(248,221,152,.5)); }
+      .garden-small-flower.second { opacity:.86; transform:translate(186px,148px) scale(.82); transform-origin:186px 148px; }
+      .garden-copy h2 { margin:6px 0 22px; font-size:clamp(2rem,4vw,3rem); }
+      .garden-copy h2::after { display:none !important; }
+      .garden-copy p { color:#ddd6ea; max-width:50ch; }
+      .garden-copy .garden-eyebrow { margin:0; color:#d8bb83; font-size:.77rem; letter-spacing:.19em; text-transform:uppercase; }
+      .garden-signoff { display:inline-block; margin-top:12px; color:#edcf9d; font-family:"Playfair Display",serif; font-style:italic; }
+      .garden-signoff span { padding-left:6px; color:#c9b1ed; }
+      @media (max-width:650px) { .garden-card { grid-template-columns:1fr; gap:8px; text-align:center; } .garden-art { width:min(72%,250px); } .garden-copy p { margin-inline:auto; } }
     </style>
   </head>
   <body>
@@ -1242,14 +1275,33 @@
         </p>
       </div>
     </section>
-    <section>
-      <h2>Secret Garden</h2>
-      <p>🌿 Every project starts as a small seed of curiosity.</p>
-      <p>
-        This portfolio continues to grow with every lesson learned, every
-        challenge solved, and every new idea explored.
-      </p>
-      <p>Check back often. New things are always blooming.</p>
+    <section class="secret-garden" aria-labelledby="garden-title">
+      <div class="garden-card">
+        <div class="garden-art" aria-hidden="true">
+          <span class="garden-glow"></span>
+          <svg viewBox="0 0 260 250" role="presentation">
+            <defs>
+              <linearGradient id="garden-moon" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff5d5"/><stop offset="1" stop-color="#e8bd70"/></linearGradient>
+              <linearGradient id="garden-petal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0da"/><stop offset="1" stop-color="#d9a8d5"/></linearGradient>
+              <linearGradient id="garden-lily" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0f5"/><stop offset=".48" stop-color="#efa8c5"/><stop offset="1" stop-color="#c85d91"/></linearGradient>
+            </defs>
+            <g transform="translate(-8 -16)"><g transform="translate(154 72) scale(1.15) translate(-154 -72)"><path class="garden-crescent" d="M154 24a48 48 0 1 0 48 64 39 39 0 0 1-48-64Z"/></g></g>
+            <g class="garden-stars" fill="#f8e5ad"><path d="m75 42 3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/><circle cx="207" cy="37" r="2"/><circle cx="91" cy="84" r="2"/><circle cx="219" cy="116" r="1.5"/></g>
+            <path class="garden-hill" d="M18 203c40-36 78-22 111-35s71-34 113 5v56H18z"/>
+            <path class="garden-stem" d="M127 213c-2-39 1-64 17-91m-17 74c-12-20-25-28-43-32m53 13c13-18 25-24 41-27"/>
+            <path class="garden-leaf" d="M128 177c-22-23-42-22-49-14 8 19 29 28 49 14Zm5-8c11-24 30-33 42-29-2 20-19 34-42 29Z"/>
+            <g class="garden-lily" transform="translate(145 119)"><g transform="rotate(0)"><path class="lily-petal" d="M0 8C-8 2-18-14-16-31-15-44-6-54 0-58 7-53 15-43 16-31 18-14 8 2 0 8Z"/><path class="lily-vein" d="M0 5C1-11 1-31 0-52"/></g><g transform="rotate(60)"><path class="lily-petal" d="M0 8C-8 2-18-14-16-31-15-44-6-54 0-58 7-53 15-43 16-31 18-14 8 2 0 8Z"/><path class="lily-vein" d="M0 5C1-11 1-31 0-52"/></g><g transform="rotate(120)"><path class="lily-petal" d="M0 8C-8 2-18-14-16-31-15-44-6-54 0-58 7-53 15-43 16-31 18-14 8 2 0 8Z"/><path class="lily-vein" d="M0 5C1-11 1-31 0-52"/></g><g transform="rotate(180)"><path class="lily-petal" d="M0 8C-8 2-18-14-16-31-15-44-6-54 0-58 7-53 15-43 16-31 18-14 8 2 0 8Z"/><path class="lily-vein" d="M0 5C1-11 1-31 0-52"/></g><g transform="rotate(240)"><path class="lily-petal" d="M0 8C-8 2-18-14-16-31-15-44-6-54 0-58 7-53 15-43 16-31 18-14 8 2 0 8Z"/><path class="lily-vein" d="M0 5C1-11 1-31 0-52"/></g><g transform="rotate(300)"><path class="lily-petal" d="M0 8C-8 2-18-14-16-31-15-44-6-54 0-58 7-53 15-43 16-31 18-14 8 2 0 8Z"/><path class="lily-vein" d="M0 5C1-11 1-31 0-52"/></g><g class="lily-stamens"><path class="lily-stamen" d="M-1 7C-3-5-12-20-17-29"/><path class="lily-stamen" d="M0 7C-2-6-6-22-8-34"/><path class="lily-stamen" d="M1 7C2-7 1-23 1-36"/><path class="lily-stamen" d="M2 7C6-5 10-20 14-30"/><path class="lily-stamen" d="M3 7C9-4 16-16 21-24"/><ellipse class="lily-anther" cx="-17" cy="-29" rx="2.1" ry="4.4" transform="rotate(-28 -17 -29)"/><ellipse class="lily-anther" cx="-8" cy="-34" rx="2.1" ry="4.4" transform="rotate(-12 -8 -34)"/><ellipse class="lily-anther" cx="1" cy="-36" rx="2.1" ry="4.4"/><ellipse class="lily-anther" cx="14" cy="-30" rx="2.1" ry="4.4" transform="rotate(22 14 -30)"/><ellipse class="lily-anther" cx="21" cy="-24" rx="2.1" ry="4.4" transform="rotate(32 21 -24)"/></g><circle class="lily-freckle" cx="-5" cy="4" r="1.1"/><circle class="lily-freckle" cx="5" cy="5" r="1.1"/><circle class="lily-freckle" cx="-8" cy="0" r=".9"/><circle class="lily-freckle" cx="8" cy="1" r=".9"/><g class="lily-glitters" aria-hidden="true"><path class="lily-glint" d="M0-5 1.4-1.4 5 0 1.4 1.4 0 5-1.4 1.4-5 0-1.4-1.4Z" transform="translate(-37 -20)"/><path class="lily-glint" d="M0-5 1.4-1.4 5 0 1.4 1.4 0 5-1.4 1.4-5 0-1.4-1.4Z" transform="translate(35 -25)"/><path class="lily-glint" d="M0-4 1.1-1.1 4 0 1.1 1.1 0 4-1.1 1.1-4 0-1.1-1.1Z" transform="translate(30 15)"/></g></g>
+            
+          </svg>
+        </div>
+        <div class="garden-copy">
+          <p class="garden-eyebrow">A quiet corner of the portfolio</p>
+          <h2 id="garden-title">The Secret Garden</h2>
+          <p>Every project starts as a small seed of curiosity.</p>
+          <p>This little garden is a reminder that learning happens one careful step at a time—and there is always room for something new to bloom.</p>
+          <span class="garden-signoff">Made with curiosity <span aria-hidden="true">✦</span></span>
+        </div>
+      </div>
     </section>
     <div aria-hidden="true" id="cursor-glimmers"></div>
     <script>
