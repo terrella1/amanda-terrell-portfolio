@@ -673,44 +673,23 @@
         background: rgba(219, 169, 200, 0.35);
         color: #fff;
       }
-      #cursor-glimmers {
+      #moon-cursor {
         position: fixed;
-        inset: 0;
-        pointer-events: none;
-        overflow: hidden;
+        top: 0;
+        left: 0;
         z-index: 9999;
+        width: 34px;
+        height: 34px;
+        pointer-events: none;
+        opacity: 0;
+        transform: translate3d(-80px, -80px, 0);
+        transition: opacity 180ms ease, transform 110ms ease-out, scale 180ms ease;
+        will-change: transform;
       }
-      .cursor-glimmer {
-        position: absolute;
-        width: 3px;
-        height: 3px;
-        border-radius: 50%;
-        background: #fff0c5;
-        box-shadow:
-          0 0 6px 1px rgba(255, 225, 161, 0.55),
-          0 0 13px rgba(194, 173, 236, 0.32);
-        animation: cursor-fade 900ms ease-out forwards;
-        will-change: transform, opacity;
-      }
-      .cursor-glimmer.soft {
-        width: 5px;
-        height: 5px;
-        filter: blur(1px);
-        opacity: 0.75;
-      }
-      @keyframes cursor-fade {
-        0% {
-          opacity: 0;
-          transform: translate3d(0, 4px, 0) scale(0.5);
-        }
-        20% {
-          opacity: 0.85;
-        }
-        100% {
-          opacity: 0;
-          transform: translate3d(var(--drift-x), var(--drift-y), 0) scale(0.15);
-        }
-      }
+      #moon-cursor.is-visible { opacity: 0.92; }
+      #moon-cursor.is-pressed { scale: 0.84; }
+      #moon-cursor svg { display: block; width: 34px; height: 34px; overflow: visible; filter: drop-shadow(0 0 5px rgba(243, 209, 138, 0.55)); }
+      #moon-cursor path { fill: #f3d18a; }
       @media (max-width: 600px) {
         .hero {
           min-height: 510px;
@@ -752,11 +731,6 @@
         .portrait-filigree { width: 76px; height: 245px; opacity: 0.68; }
         .portrait-filigree-left { left: 1%; }
         .portrait-filigree-right { right: 1%; }
-      }
-      @media (hover: none), (pointer: coarse) {
-        #cursor-glimmers {
-          display: none;
-        }
       }
       @media (prefers-reduced-motion: reduce) {
         *,
@@ -1048,7 +1022,7 @@
       <div class="sparkle sparkle-near" style="top: 76%; left: 81%; animation-delay: -6.2s"></div>
       <div class="sparkle sparkle-near" style="top: 14%; left: 64%; animation-delay: -1.8s"></div>
       <h1>Amanda Terrell</h1>
-      <p class="title-subtitle">CLOUD TECHNOLOGY &amp; SECURITY</p>
+      <p class="title-subtitle">REMOTE CLOUD SUPPORT · AWS · HEALTHCARE OPERATIONS</p>
     </section>
     <div class="portrait-ornament">
       <svg class="portrait-filigree portrait-filigree-left" viewBox="0 0 100 270" aria-hidden="true">
@@ -1132,9 +1106,11 @@
         <h4>What I worked through</h4>
         <p>
           I configured the hosting and delivery pieces, then troubleshot
-          deployment and security issues—including a warning that led me to
+          deployment and security issues—including an HTTPS warning that led me to
           implement HTTPS through CloudFront.
         </p>
+        <h4>Troubleshooting example</h4>
+        <p>During deployment, I encountered an HTTPS warning. I set up CloudFront for HTTPS delivery and learned how delivery configuration affects browser security.</p>
         <h4>Tools</h4>
         <p>Amazon S3 · AWS IAM · Amazon CloudFront · GitHub · GitHub Pages · HTML · CSS</p>
       </div>
@@ -1154,9 +1130,9 @@
              target="_blank" rel="noopener noreferrer">View the project on GitHub</a>
         </p>
       </div>
-      <h3>Up next</h3>
+      <h3>AWS Cost Calculator</h3>
       <div class="project cost-calculator" id="aws-cost-calculator">
-        <h4>AWS Cost Calculator</h4>
+
         <p class="cost-intro">
           What might a small portfolio website cost as it grows? Move the sliders
           to explore a simple monthly estimate for this site’s S3 and CloudFront
@@ -1238,8 +1214,8 @@
         </a>
       </p>
      <p>
-      <a href="Amanda_Terrell_Cloud_Support_Resume_Public.pdf" target="_blank" rel="noopener noreferrer">
-  Download my resume
+      <a href="Amanda_Terrell_Cloud_Support_Resume_Updated.docx" target="_blank" rel="noopener noreferrer">
+  Download updated resume
 </a>
      </p>
       <p>
@@ -1303,7 +1279,7 @@
         </div>
       </div>
     </section>
-    <div aria-hidden="true" id="cursor-glimmers"></div>
+    <div aria-hidden="true" id="moon-cursor"><svg viewBox="0 0 36 36" focusable="false"><path d="M20.3 2.5A15.5 15.5 0 1 0 33.5 25.1 13.3 13.3 0 0 1 20.3 2.5Z"/><path d="m30 23 1.6 4.2 4.2 1.6-4.2 1.6L30 34.6l-1.6-4.2-4.2-1.6 4.2-1.6Z"/></svg></div>
     <script>
       (() => {
         const field = document.getElementById("dream-stars");
@@ -1333,50 +1309,18 @@
     </script>
     <script>
       (() => {
-        const reduceMotion = window.matchMedia(
-          "(prefers-reduced-motion: reduce)",
-        ).matches;
-        const finePointer = window.matchMedia(
-          "(hover: hover) and (pointer: fine)",
-        ).matches;
-        if (reduceMotion || !finePointer) return;
-        const layer = document.getElementById("cursor-glimmers");
-        let last = 0;
-        let count = 0;
-        document.addEventListener(
-          "pointermove",
-          (event) => {
-            const now = performance.now();
-            if (now - last < 75 || count > 14) return;
-            last = now;
-            const particle = document.createElement("span");
-            particle.className =
-              "cursor-glimmer" + (Math.random() > 0.72 ? " soft" : "");
-            particle.style.left =
-              event.clientX + (Math.random() * 12 - 6) + "px";
-            particle.style.top =
-              event.clientY + (Math.random() * 12 - 6) + "px";
-            particle.style.setProperty(
-              "--drift-x",
-              Math.random() * 22 - 11 + "px",
-            );
-            particle.style.setProperty(
-              "--drift-y",
-              -8 - Math.random() * 18 + "px",
-            );
-            layer.appendChild(particle);
-            count++;
-            particle.addEventListener(
-              "animationend",
-              () => {
-                particle.remove();
-                count--;
-              },
-              { once: true },
-            );
-          },
-          { passive: true },
-        );
+        const cursor = document.getElementById("moon-cursor");
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+        if (!cursor || reduceMotion || !finePointer) return;
+        document.addEventListener("pointermove", (event) => {
+          if (event.pointerType !== "mouse" && event.pointerType !== "pen") return;
+          cursor.style.transform = `translate3d(${event.clientX + 13}px, ${event.clientY + 13}px, 0)`;
+          cursor.classList.add("is-visible");
+        }, { passive: true });
+        document.addEventListener("pointerdown", () => cursor.classList.add("is-pressed"));
+        document.addEventListener("pointerup", () => cursor.classList.remove("is-pressed"));
+        document.addEventListener("pointerleave", () => cursor.classList.remove("is-visible"));
       })();
     </script>
 
